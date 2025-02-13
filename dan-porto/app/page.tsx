@@ -1,6 +1,7 @@
 // import Image from "next/image";
 import Navbar from "@/components/navbar";
 import Dashboard from "@/components/dashboard";
+import ParallaxText from "@/components/parallax";
 
 export default function Home() {
   return (
@@ -11,6 +12,9 @@ export default function Home() {
       </div>
       <div className="py-16">
         <Dashboard />
+      </div>
+      <div className="py-10">
+        <ParallaxText />
       </div>
     </div>
   );
