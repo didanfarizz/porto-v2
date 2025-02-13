@@ -12,7 +12,7 @@ import {
 } from "framer-motion";
 import { wrap } from "@motionone/utils";
 import { FaReact, FaNodeJs, FaHtml5, FaCss3, FaJs, FaPython } from 'react-icons/fa';
-import { SiNextdotjs, SiTailwindcss, SiPostgresql, SiFigma, SiBootstrap, SiTensorflow, SiMysql, SiFlutter, SiGit } from 'react-icons/si';
+import { SiNextdotjs, SiTailwindcss, SiPostgresql, SiFigma, SiVercel, SiVite, SiBootstrap, SiMysql, SiFlutter, SiGit } from 'react-icons/si';
 
 interface ParallaxProps {
   baseVelocity: number;
@@ -83,8 +83,9 @@ export default function App() {
     { icon: <SiBootstrap />, name: "Bootstrap" },
     { icon: <SiMysql />, name: "MySQL" },
     { icon: <SiFlutter />, name: "Flutter" },
-    { icon: <SiTensorflow />, name: "TensorFlow" },
     { icon: <SiGit />, name: "Git" },
+    { icon: <SiVercel />, name: "Vercel" },
+    { icon: <SiVite />, name: "Vite" },
   ];
 
   return (

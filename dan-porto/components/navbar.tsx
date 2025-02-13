@@ -16,7 +16,7 @@ export default function Navbar() {
               </li>
               <li>
                 <a href="#" className="block py-2 px-3 text-white hover:text-primary underline-hover">
-                  About
+                  Service
                 </a>
               </li>
               <li>
