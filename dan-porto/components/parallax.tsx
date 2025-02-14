@@ -1,6 +1,6 @@
 'use client'
 import './styles.css';
-import { JSX, useRef } from "react";
+import { JSX } from "react";
 import {
   motion,
   useScroll,
@@ -12,7 +12,7 @@ import {
 } from "framer-motion";
 import { wrap } from "@motionone/utils";
 import { FaReact, FaNodeJs, FaHtml5, FaCss3, FaJs, FaPython } from 'react-icons/fa';
-import { SiNextdotjs, SiTailwindcss, SiPostgresql, SiFigma, SiVercel, SiVite, SiBootstrap, SiMysql, SiFlutter, SiGit } from 'react-icons/si';
+import { SiNextdotjs, SiTailwindcss, SiPostgresql, SiFigma, SiVite, SiBootstrap, SiMysql, SiGit, SiExpress } from 'react-icons/si';
 
 interface ParallaxProps {
   baseVelocity: number;
@@ -24,26 +24,21 @@ function ParallaxIcons({ baseVelocity, icons }: ParallaxProps) {
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
 
-  // Perubahan pada useSpring untuk animasi lebih smooth
+  // Menghaluskan animasi
   const smoothVelocity = useSpring(scrollVelocity, {
-    damping: 100,   // Meningkatkan peredaman untuk transisi lebih halus
-    stiffness: 300  // Mengurangi kekakuan agar lebih lembut
+    damping: 100,
+    stiffness: 300
   });
 
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 3], {
-    clamp: false
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 1], {
+    clamp: true
   });
 
   const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
-  const directionFactor = useRef<number>(1);
 
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 2000); // Diperlambat dengan pembagian lebih besar
-
-    if (velocityFactor.get() < 0) directionFactor.current = -1;
-    else if (velocityFactor.get() > 0) directionFactor.current = 1;
-
-    moveBy += directionFactor.current * moveBy * velocityFactor.get();
+    let moveBy = baseVelocity * (delta / 2000);
+    moveBy += moveBy * velocityFactor.get();
     baseX.set(baseX.get() + moveBy);
   });
 
@@ -52,7 +47,7 @@ function ParallaxIcons({ baseVelocity, icons }: ParallaxProps) {
       <motion.div 
         className="scroller flex space-x-10 text-4xl font-bold text-white"
         style={{ x }}
-        transition={{ ease: "easeInOut", duration: 2 }} // Tambahan easing effect
+        transition={{ ease: "easeInOut", duration: 100 }}
       >
         {[...Array(3)].map((_, i) => (
           <div key={i} className="flex space-x-6">
@@ -82,10 +77,9 @@ export default function App() {
     { icon: <SiFigma />, name: "Figma" },
     { icon: <SiBootstrap />, name: "Bootstrap" },
     { icon: <SiMysql />, name: "MySQL" },
-    { icon: <SiFlutter />, name: "Flutter" },
     { icon: <SiGit />, name: "Git" },
-    { icon: <SiVercel />, name: "Vercel" },
     { icon: <SiVite />, name: "Vite" },
+    { icon: <SiExpress />, name: "Express" },
   ];
 
   return (

@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar";
 import Dashboard from "@/components/dashboard";
 import ParallaxText from "@/components/parallax";
 import Service from "@/components/service";
+import Project from "@/components/project";
 
 export default function Home() {
   return (
@@ -17,8 +18,11 @@ export default function Home() {
       <div className="py-10">
         <ParallaxText />
       </div>
-      <div className="py-16">
+      <div className="py-8">
         <Service />
+      </div>
+      <div className="py-16">
+        <Project />
       </div>
     </div>
   );
