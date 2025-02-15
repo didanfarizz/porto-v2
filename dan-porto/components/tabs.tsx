@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpRightFromSquare, faCode } from '@fortawesome/free-solid-svg-icons';
+import { SiFigma } from 'react-icons/si';
 
 export default function Tabs() {
   const [activeTab, setActiveTab] = useState('Projects');
@@ -15,26 +16,79 @@ export default function Tabs() {
   const projects = [
     {
       title: 'TechnoFair 11 | Website',
+      category: 'Web Development',
       image: '/tf.png',
       link: 'https://bemfikti-gunadarma.web.id/technofair',
       github: 'https://github.com/PtiBemFikti/Fikti-App/tree/master/src/components/technofair',
     },
     {
       title: 'Pemira 2024-2025 | Website',
+      category: 'Web Development',
       image: '/pemira.png',
       link: 'https://bemfikti-gunadarma.web.id/pemira',
       github: 'https://github.com/PtiBemFikti/Fikti-App/tree/master/src/components/pemira',
     },
     {
       title: 'My Portfolio V1 | Website',
+      category: 'Web Development',
       image: '/porto-v1.png',
       link: 'https://web-didanfarizz-portfolio.netlify.app/',
       github: 'https://github.com/didanfarizz/myPortfolio',
     },
     {
-      title: 'CodeSync - Real-time Code Collaboration',
-      image: '/images/codesync.jpg',
+      title: 'ScooTer | Website',
+      category: 'Web Development',
+      image: '/scooter.png',
+      link: 'https://scooter-app-beta.vercel.app/',
+      github: 'https://github.com/didanfarizz/scooTer',
+    },
+    {
+      title: 'Breast Cancer Classification | Machine Learning',
+      category: 'Machine Learning',
+      image: '/breast-cancer.png',
       link: '#',
+      github: 'https://github.com/didanfarizz/Breast-Cancer-Classifier---Logistic-Regression',
+    },
+    {
+      title: 'Flight Price Prediction | Machine Learning',
+      category: 'Machine Learning',
+      image: '/harga.png',
+      link: '#',
+      github: 'https://github.com/didanfarizz/Flight-Price-Prediction-2025---Regression',
+    },
+    {
+      title: 'Adult Sallary Classification | Machine Learning',
+      category: 'Machine Learning',
+      image: '/gaji.png',
+      link: '#',
+      github: 'https://github.com/didanfarizz/Adult-Sallary-Classifier---KNN-Models',
+    },
+    {
+      title: 'Gym Member Classification | Machine Learning',
+      category: 'Machine Learning',
+      image: '/member.png',
+      link: '#',
+      github: 'https://github.com/didanfarizz/Classification-Gym-Member-Experience-KNN-Models',
+    },
+    {
+      title: 'Depression Classification | Machine Learning',
+      category: 'Machine Learning',
+      image: '/depresi.png',
+      link: '#',
+      github: 'https://github.com/didanfarizz/Depression-Classification-KNN-Models',
+    },
+    {
+      title: 'ScooTer | UIUX',
+      category: 'UIUX Design',
+      image: '/scooter-design.png',
+      link: 'https://www.figma.com/design/wovPXQJNuzpfcdycd6J7eQ/Scooter-Website---PBW?m=auto&t=m98ncYAntmCcx2EY-6',
+      github: '#',
+    },
+    {
+      title: 'SwiftRide | UIUX',
+      category: 'UIUX Design',
+      image: '/swiftride.png',
+      link: 'https://www.figma.com/design/scQGgo7aMVvUWAkpS8Q5Bg/SwiftRide?m=auto&t=m98ncYAntmCcx2EY-6',
       github: '#',
     },
   ];
@@ -68,18 +122,29 @@ export default function Tabs() {
                   <Image src={project.image} alt={project.title} width={500} height={150} className="rounded-md shadow-xl transition-all duration-300 hover:shadow-purple" />
                   <h3 className="mt-2">{project.title}</h3>
                   <div className="space-x-2 flex justify-center items-center">
-                    <Link href={project.link} target="_blank" rel="noopener noreferrer">
-                      <div className="mt-4 bg-primary px-4 py-2 rounded-md text-white flex items-center gap-2">
-                        <FontAwesomeIcon icon={faUpRightFromSquare} />
-                        Live
-                      </div>
-                    </Link>
-                    <Link href={project.github as string} target="_blank" rel="noopener noreferrer">
-                      <div className="mt-4 bg-gray-700 px-4 py-2 rounded-md text-white flex items-center gap-2">
-                        <FontAwesomeIcon icon={faCode} />
-                        Code
-                      </div>
-                    </Link>
+                    {project.category === 'UIUX Design' ? (
+                      <Link href={project.link} target="_blank" rel="noopener noreferrer">
+                        <div className="mt-4 bg-primary px-4 py-2 rounded-md text-white flex items-center gap-2">
+                          <SiFigma />
+                        </div>
+                      </Link>
+                    ) : (
+                      <>
+                        {project.category !== 'Machine Learning' && (
+                          <Link href={project.link} target="_blank" rel="noopener noreferrer">
+                            <div className="mt-4 bg-primary px-4 py-2 rounded-md text-white flex items-center gap-2">
+                              <FontAwesomeIcon icon={faUpRightFromSquare} />
+                            </div>
+                          </Link>
+                        )}
+                        <Link href={project.github || '#'} target="_blank" rel="noopener noreferrer">
+                          <div className="mt-4 bg-gray-700 px-4 py-2 rounded-md text-white flex items-center gap-2">
+                            <FontAwesomeIcon icon={faCode} />
+                            Code
+                          </div>
+                        </Link>
+                      </>
+                    )}
                   </div>
                 </div>
               ))}
