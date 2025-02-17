@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpRightFromSquare, faCode } from '@fortawesome/free-solid-svg-icons';
-import { SiFigma } from 'react-icons/si';
+import { FaReact, FaNodeJs, FaHtml5, FaCss3, FaJs, FaPython } from 'react-icons/fa';
+import { SiNextdotjs, SiTailwindcss, SiPostgresql, SiFigma, SiVite, SiBootstrap, SiMysql, SiGit, SiExpress } from 'react-icons/si';
 
 export default function Tabs() {
   const [activeTab, setActiveTab] = useState('Projects');
@@ -92,9 +93,43 @@ export default function Tabs() {
       github: '#',
     },
   ];
+  const certificates = [
+    {
+      title: 'Article Writing Competition - Universitas Gunadarma',
+      image: '/sertif-1.jpg',
+    },
+    {
+      title: 'Building a Career as Software Developer - Dicoding',
+      image: '/sertif-2.jpg',
+    },
+    {
+      title: 'Programming Logic Introduction - Dicoding',
+      image: '/sertif-3.jpg',
+    },
+  ];
+  const skills = [
+    { icon: <FaHtml5 style={{ color: '#E34F26' }} />, name: 'HTML' },
+    { icon: <FaCss3 style={{ color: '#1572B6' }} />, name: 'CSS' },
+    { icon: <FaJs style={{ color: '#F7DF1E' }} />, name: 'JavaScript' },
+    { icon: <FaReact style={{ color: '#61DAFB' }} />, name: 'React.js' },
+    { icon: <SiNextdotjs style={{ color: '#000' }} />, name: 'Next.js' },
+    { icon: <SiVite style={{ color: '#646CFF' }} />, name: 'Vite' },
+    { icon: <FaNodeJs style={{ color: '#339933' }} />, name: 'Node.js' },
+    { icon: <SiExpress style={{ color: '#000' }} />, name: 'Express.js' },
+    { icon: <SiTailwindcss style={{ color: '#38B2AC' }} />, name: 'Tailwind CSS' },
+    { icon: <SiBootstrap style={{ color: '#7952B3' }} />, name: 'Bootstrap' },
+    { icon: <SiMysql style={{ color: '#4479A1' }} />, name: 'MySQL' },
+    { icon: <SiPostgresql style={{ color: '#336791' }} />, name: 'PostgreSQL' },
+    { icon: <FaPython style={{ color: '#3776AB' }} />, name: 'Python' },
+    { icon: <SiGit style={{ color: '#F05032' }} />, name: 'Git' },
+    { icon: <SiFigma style={{ color: '#F24E1E' }} />, name: 'Figma' },
+  ];
 
   const currentProjects = projects.slice(page * ITEMS_PER_PAGE, (page + 1) * ITEMS_PER_PAGE);
   const totalPages = Math.ceil(projects.length / ITEMS_PER_PAGE);
+
+  const currentCertificates = certificates.slice(page * ITEMS_PER_PAGE, (page + 1) * ITEMS_PER_PAGE);
+  const totalPagesCertificates = Math.ceil(certificates.length / ITEMS_PER_PAGE);
 
   return (
     <div className="p-6 bg-gradient-to-b from-purple-900 to-black min-h-screen flex flex-col items-center">
@@ -114,6 +149,7 @@ export default function Tabs() {
         ))}
       </ul>
       <div className="w-full max-w-5xl p-6 bg-secondary bg-transparent rounded-xl shadow-xl text-white min-h-[300px]">
+        {/* Project Start */}
         {activeTab === 'Projects' && (
           <div>
             <div className="grid grid-cols-2 gap-6 mt-4">
@@ -162,8 +198,52 @@ export default function Tabs() {
             </div>
           </div>
         )}
-        {activeTab === 'Certificates' && <p className="text-gray-300">Dashboard Content</p>}
-        {activeTab === 'My Skills' && <p className="text-gray-300">Settings Content</p>}
+        {/* Project End */}
+        {/* Certificate Start */}
+        {activeTab === 'Certificates' && (
+          <div className="">
+            <div className="grid grid-cols-2 gap-6 mt-4">
+              {currentCertificates.map((certificate, index) => (
+                <div key={index} className="bg-foreground bg-opacity-40 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                  <Image src={certificate.image} alt={certificate.title} width={500} height={150} className="rounded-md shadow-xl transition-all duration-300 hover:shadow-purple" />
+                  <h3 className="mt-2">{certificate.title}</h3>
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-between mt-4">
+              <Button variant="outline" disabled={page === 0} onClick={() => setPage((prev) => prev - 1)}>
+                Previous
+              </Button>
+              <span className="self-center">
+                Page {page + 1} of {totalPagesCertificates}
+              </span>
+              <Button variant="outline" disabled={page >= totalPagesCertificates - 1} onClick={() => setPage((prev) => prev + 1)}>
+                Next
+              </Button>
+            </div>
+          </div>
+        )}
+        {/* Certificate End */}
+        {/* Skills Start */}
+        {activeTab === 'My Skills' && (
+          <div className="">
+            <div className="flex justify-center items-center gap-6 mt-4">
+              {activeTab === 'My Skills' && (
+                <div>
+                  <div className="grid grid-cols-6 space-x-5 mt-4">
+                    {skills.map((skill, index) => (
+                      <div key={index} className="bg-transparent backdrop-blur-lg bg-opacity-30 border-opacity-20 rounded-lg shadow-md flex flex-col items-center text-center">
+                        <div className="text-5xl text-primary">{skill.icon}</div>
+                        <h3 className="mt-2">{skill.name}</h3>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* Skills End */}
       </div>
     </div>
   );
