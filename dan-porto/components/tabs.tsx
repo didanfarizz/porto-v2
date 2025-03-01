@@ -6,7 +6,8 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpRightFromSquare, faCode } from '@fortawesome/free-solid-svg-icons';
 import { FaReact, FaNodeJs, FaHtml5, FaCss3, FaJs, FaPython } from 'react-icons/fa';
-import { SiNextdotjs, SiTailwindcss, SiPostgresql, SiFigma, SiVite, SiBootstrap, SiMysql, SiGit, SiExpress } from 'react-icons/si';
+import { SiTailwindcss, SiPostgresql, SiFigma, SiVite, SiBootstrap, SiMysql, SiGit, SiExpress } from 'react-icons/si';
+
 
 export default function Tabs() {
   const [activeTab, setActiveTab] = useState('Projects');
@@ -112,7 +113,10 @@ export default function Tabs() {
     { icon: <FaCss3 style={{ color: '#1572B6' }} />, name: 'CSS' },
     { icon: <FaJs style={{ color: '#F7DF1E' }} />, name: 'JavaScript' },
     { icon: <FaReact style={{ color: '#61DAFB' }} />, name: 'React.js' },
-    { icon: <SiNextdotjs style={{ color: '#000' }} />, name: 'Next.js' },
+    {
+      icon: <i className='devicon-nextjs-original colored'></i>,
+      name: 'Next.js',
+    },
     { icon: <SiVite style={{ color: '#646CFF' }} />, name: 'Vite' },
     { icon: <FaNodeJs style={{ color: '#339933' }} />, name: 'Node.js' },
     { icon: <SiExpress style={{ color: '#000' }} />, name: 'Express.js' },
@@ -230,9 +234,12 @@ export default function Tabs() {
             <div className="flex justify-center items-center gap-6 mt-4">
               {activeTab === 'My Skills' && (
                 <div>
-                  <div className="grid grid-cols-6 space-x-5 mt-4">
+                  <div className="grid grid-cols-5 gap-10">
                     {skills.map((skill, index) => (
-                      <div key={index} className="bg-transparent backdrop-blur-lg bg-opacity-30 border-opacity-20 rounded-lg shadow-md flex flex-col items-center text-center">
+                      <div
+                        key={index}
+                        className="backdrop-blur-lg bg-opacity-10 p-7 hover:shadow-primary hover:shadow-lg hover:transition-shadow hover:ease-in-out bg-white border-primary border rounded-lg shadow-md flex flex-col items-center text-center"
+                      >
                         <div className="text-5xl text-primary">{skill.icon}</div>
                         <h3 className="mt-2">{skill.name}</h3>
                       </div>
