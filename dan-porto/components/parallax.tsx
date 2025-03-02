@@ -1,18 +1,10 @@
-'use client'
+'use client';
 import './styles.css';
-import { JSX } from "react";
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useTransform,
-  useMotionValue,
-  useVelocity,
-  useAnimationFrame
-} from "framer-motion";
-import { wrap } from "@motionone/utils";
-import { FaReact, FaNodeJs, FaHtml5, FaCss3, FaJs, FaPython } from 'react-icons/fa';
-import { SiNextdotjs, SiTailwindcss, SiPostgresql, SiFigma, SiVite, SiBootstrap, SiMysql, SiGit, SiExpress } from 'react-icons/si';
+import { JSX } from 'react';
+import { motion, useScroll, useSpring, useTransform, useMotionValue, useVelocity, useAnimationFrame } from 'framer-motion';
+import { wrap } from '@motionone/utils';
+// import { FaReact, FaNodeJs, FaHtml5, FaCss3, FaJs, FaPython } from 'react-icons/fa';
+// import { SiNextdotjs, SiTailwindcss, SiPostgresql, SiFigma, SiVite, SiBootstrap, SiMysql, SiGit, SiExpress } from 'react-icons/si';
 
 interface ParallaxProps {
   baseVelocity: number;
@@ -27,11 +19,11 @@ function ParallaxIcons({ baseVelocity, icons }: ParallaxProps) {
   // Menghaluskan animasi
   const smoothVelocity = useSpring(scrollVelocity, {
     damping: 100,
-    stiffness: 300
+    stiffness: 300,
   });
 
   const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 1], {
-    clamp: true
+    clamp: true,
   });
 
   const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
@@ -44,11 +36,7 @@ function ParallaxIcons({ baseVelocity, icons }: ParallaxProps) {
 
   return (
     <div className="parallax w-full overflow-hidden">
-      <motion.div 
-        className="scroller flex space-x-10 text-4xl font-bold text-white"
-        style={{ x }}
-        transition={{ ease: "easeInOut", duration: 100 }}
-      >
+      <motion.div className="scroller flex space-x-10 text-4xl font-bold text-white" style={{ x }} transition={{ ease: 'easeInOut', duration: 100 }}>
         {[...Array(3)].map((_, i) => (
           <div key={i} className="flex space-x-6">
             {icons.map((item, index) => (
@@ -64,28 +52,27 @@ function ParallaxIcons({ baseVelocity, icons }: ParallaxProps) {
 }
 
 export default function App() {
-  const techIcons = [
-    { icon: <FaReact />, name: "React" },
-    { icon: <FaHtml5 />, name: "HTML" },
-    { icon: <FaCss3 />, name: "CSS" },
-    { icon: <FaJs />, name: "JavaScript" },
-    { icon: <FaPython />, name: "Python" },
-    { icon: <FaNodeJs />, name: "Node.js" },
-    { icon: <SiNextdotjs />, name: "Next.js" },
-    { icon: <SiTailwindcss />, name: "Tailwind CSS" },
-    { icon: <SiPostgresql />, name: "PostgreSQL" },
-    { icon: <SiFigma />, name: "Figma" },
-    { icon: <SiBootstrap />, name: "Bootstrap" },
-    { icon: <SiMysql />, name: "MySQL" },
-    { icon: <SiGit />, name: "Git" },
-    { icon: <SiVite />, name: "Vite" },
-    { icon: <SiExpress />, name: "Express" },
-  ];
+  // const techIcons = [
+  //   { icon: <FaReact />, name: "React" },
+  //   { icon: <FaHtml5 />, name: "HTML" },
+  //   { icon: <FaCss3 />, name: "CSS" },
+  //   { icon: <FaJs />, name: "JavaScript" },
+  //   { icon: <FaPython />, name: "Python" },
+  //   { icon: <FaNodeJs />, name: "Node.js" },
+  //   { icon: <SiNextdotjs />, name: "Next.js" },
+  //   { icon: <SiTailwindcss />, name: "Tailwind CSS" },
+  //   { icon: <SiPostgresql />, name: "PostgreSQL" },
+  //   { icon: <SiFigma />, name: "Figma" },
+  //   { icon: <SiBootstrap />, name: "Bootstrap" },
+  //   { icon: <SiMysql />, name: "MySQL" },
+  //   { icon: <SiGit />, name: "Git" },
+  //   { icon: <SiVite />, name: "Vite" },
+  //   { icon: <SiExpress />, name: "Express" },
+  // ];
 
   return (
     <section className="relative overflow-x-hidden flex flex-col space-y-4 py-8">
-      <ParallaxIcons baseVelocity={-2} icons={techIcons} />
-      <ParallaxIcons baseVelocity={2} icons={techIcons} />
+      <ParallaxIcons baseVelocity={-0.5} icons={[]} />
     </section>
   );
 }

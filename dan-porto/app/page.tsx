@@ -1,9 +1,10 @@
 // import Image from "next/image";
 import Navbar from "@/components/navbar";
 import Dashboard from "@/components/dashboard";
-// import ParallaxText from "@/components/parallax";
+import ParallaxText from "@/components/parallax";
 import Service from "@/components/service";
 import Project from "@/components/project";
+import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
@@ -12,14 +13,18 @@ export default function Home() {
       <div className="py-6">
         <Navbar />
       </div>
-      <div className="py-16">
+      <div className="py-5">
         <Dashboard />
+        <ParallaxText />
       </div>
       <div className="py-8">
         <Service />
       </div>
-      <div className="py-16">
+      <div className="mt-16">
         <Project />
+      </div>
+      <div className="py-8">
+        <Contact />
       </div>
     </div>
   );
