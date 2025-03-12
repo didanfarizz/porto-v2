@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Didan Fariz Abqari - Portfolio",
-  description: "Didan Fariz Abqari Portfolio Project",
+  title: 'Didan Fariz Abqari - Portfolio',
+  description: 'Didan Fariz Abqari Portfolio Project',
 };
 
 export default function RootLayout({
@@ -19,10 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} bg-background w-full p-0 antialiased relative overflow-x-hidden`}
-      >
+      <body className={`${inter.className} bg-background w-full p-0 antialiased relative overflow-x-hidden`}>
         {children}
+        <Toaster />
       </body>
     </html>
   );
