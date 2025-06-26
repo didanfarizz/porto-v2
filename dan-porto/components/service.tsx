@@ -13,7 +13,7 @@ export default function Service() {
     },
     {
       id: '03',
-      name: 'Web Design',
+      name: 'UI / UX',
       description:
         'Designing intuitive user flows and ensuring accessibility to accommodate a diverse range of users. Developing wireframes and interactive prototypes in Figma to visualize concepts and enhance the overall user experience.',
     },
