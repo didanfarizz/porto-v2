@@ -41,22 +41,21 @@ export default function Contact() {
   };
 
   return (
-    <div>
-      <h1 className="text-xl font-bold bg-gradient-to-r from-primary via-white to-[#fff] text-transparent bg-clip-text">Hubungi Saya</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Nama:</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+    <div className=''>
+      <form onSubmit={handleSubmit} className='flex flex-col space-y-3'>
+        <div className='flex flex-col space-y-2'>
+          <label className='text-white font-medium' htmlFor="name">Name</label>
+          <input className='rounded-[15px] p-5 mr-20 text-black' type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
         </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+        <div className='flex flex-col space-y-2'>
+          <label className='text-white font-medium' htmlFor="email">Email</label>
+          <input className='rounded-[15px] p-5 mr-20 text-black' type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
         </div>
-        <div>
-          <label htmlFor="message">Pesan Anda:</label>
-          <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows={5} required></textarea>
+        <div className='flex flex-col space-y-2'>
+          <label className='text-white font-medium' htmlFor="message">Your Message</label>
+          <textarea className='rounded-[15px] p-5 mr-20 text-black' id="message" name="message" value={formData.message} onChange={handleChange} rows={5} required></textarea>
         </div>
-        <button type="submit">Kirim Pesan</button>
+        <button className='bg-primary text-white rounded-[15px] p-5 mr-20 hover:bg-purple hover:transition-all hover:ease-in-out hover:shadow-md hover:shadow-primary hover:font-bold' type="submit">Submit</button>
       </form>
       {status && <p>{status}</p>}
     </div>
