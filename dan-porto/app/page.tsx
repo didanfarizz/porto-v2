@@ -5,6 +5,7 @@ import ParallaxText from "@/components/parallax";
 import Service from "@/components/service";
 import Project from "@/components/project";
 import Contact from "@/components/Contact";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
       <div className="py-8">
         <Contact />
       </div>
+        <Footer />
     </div>
   );
 }

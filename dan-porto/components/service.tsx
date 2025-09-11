@@ -2,9 +2,9 @@ export default function Service() {
   const services = [
     {
       id: '01',
-      name: 'Front-End Web Development',
+      name: 'FullStack Development',
       description:
-        'Designing engaging, intuitive, and responsive interfaces to enhance user experience and engagement. Effectively collaborating with designers, developers, and stakeholders to transform ideas into functional and innovative digital solutions.',
+        'Designing and developing robust end-to-end digital solutions, from intuitive and responsive interfaces to scalable server-side logic. Effectively collaborating with designers, developers, and stakeholders to transform ideas into functional and innovative digital products.',
     },
     {
       id: '02',
