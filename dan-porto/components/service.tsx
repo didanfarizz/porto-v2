@@ -2,7 +2,7 @@ export default function Service() {
   const services = [
     {
       id: '01',
-      name: 'FullStack Development',
+      name: 'FullStack Web Development',
       description:
         'Designing and developing robust end-to-end digital solutions, from intuitive and responsive interfaces to scalable server-side logic. Effectively collaborating with designers, developers, and stakeholders to transform ideas into functional and innovative digital products.',
     },

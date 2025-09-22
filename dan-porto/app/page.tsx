@@ -1,33 +1,50 @@
+'use client';
+
 // import Image from "next/image";
-import Navbar from "@/components/navbar";
-import Dashboard from "@/components/dashboard";
-import ParallaxText from "@/components/parallax";
-import Service from "@/components/service";
-import Project from "@/components/project";
-import Contact from "@/components/Contact";
-import Footer from "@/components/footer";
+import Navbar from '@/components/navbar';
+import Dashboard from '@/components/dashboard';
+import ParallaxText from '@/components/parallax';
+import Service from '@/components/service';
+import Project from '@/components/project';
+import Contact from '@/components/Contact';
+import Footer from '@/components/footer';
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Home() {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    document.title = 'My Portfolio';
+    const section = searchParams.get('section');
+    if (section) {
+      const element = document.getElementById(section);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [searchParams]);
+
   return (
-    <div className="overflow-x-hidden relative w-screen min-h-screen outline outline-red-500">
-      <div className="bg-purple w-64 h-64 right-0 rounded-full absolute translate-x-20 -translate-y-1/2 blur-3xl"></div>
-      <div className="py-6">
-        <Navbar />
-      </div>
-      <div className="py-5">
-        <Dashboard />
-        <ParallaxText />
-      </div>
-      <div className="py-8">
-        <Service />
-      </div>
-      <div className="mt-16">
-        <Project />
-      </div>
-      <div className="py-8">
-        <Contact />
-      </div>
+    <>
+      <Navbar />
+      <div className="overflow-hidden relative w-screen min-h-screen">
+        <div className="bg-purple w-64 h-64 right-0 rounded-full absolute translate-x-20 -translate-y-1/2 blur-3xl"></div>
+        <div id="home" className="py-11">
+          <Dashboard />
+          <ParallaxText />
+        </div>
+        <div id="service" className="py-16">
+          <Service />
+        </div>
+        <div id="project" className="py-32">
+          <Project />
+        </div>
+        <div id="contact" className="mt-16">
+          <Contact />
+        </div>
         <Footer />
-    </div>
+      </div>
+    </>
   );
 }

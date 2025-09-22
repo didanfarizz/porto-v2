@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const Blob = () => {
   return (
-    <div className="absolute w-full h-full flex items-center justify-center overflow-hidden -z-10">
+    <div className="absolute w-full h-full flex items-center justify-center overflow-hidden -z-50">
       {/* Blob */}
       <motion.div
         className="absolute w-1/2 blur-2xl"

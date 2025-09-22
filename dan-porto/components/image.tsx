@@ -34,7 +34,7 @@ const CardImage = () => {
           <div className="tracker tr-24" />
           <div className="tracker tr-25" />
           <div id="card" className='rounded-full w-80 h-80 border-primary border-4'>
-            <Image src={'/hero.png'} alt='foto saya' className='w-full h-full' width={200} height={254}></Image>
+            <Image src={'/profil-2.png'} alt='foto saya' className='w-full h-full rounded-full' width={200} height={254}></Image>
           </div>
         </div>
       </div>
@@ -105,7 +105,7 @@ const StyledWrapper = styled.div`
 
   .tracker {
     position: absolute;
-    z-index: 200;
+    z-index: 20;
     width: 100%;
     height: 100%;
     border-radius: 100%;
@@ -133,7 +133,7 @@ const StyledWrapper = styled.div`
   .canvas {
     perspective: 800px;
     inset: 0;
-    z-index: 200;
+    z-index: 20;
     position: absolute;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

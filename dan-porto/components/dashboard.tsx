@@ -12,7 +12,7 @@ export default function Dashboard() {
           <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-white to-[#fff] text-transparent bg-clip-text">Web Developer &</h1>
           <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-white to-[#fff] text-transparent bg-clip-text">ML Engineer</h1>
           <p className="">
-            Welcome to my Portfolio! I am an Information Systems student with a strong passion for Front-End Development and Machine Learning Engineering. I enjoy exploring the latest technologies, innovating in digital development, and
+            Welcome to my Portfolio! I am an Information Systems student with a passion for FullStack Web Development and Machine Learning Engineering. I enjoy exploring the latest technologies, innovating in digital development, and
             crafting creative solutions for every challenge. With a commitment to quality and attention to detail, I strive to deliver the best experience in every project I undertake. 🚀
           </p>
           <div className="flex justify-start items-start">
