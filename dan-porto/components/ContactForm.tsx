@@ -20,7 +20,6 @@ export default function ContactForm() {
 
     try {
       const response = await fetch('http://localhost:8080/api/contact', {
-        // Ganti dengan URL backend Go Anda jika berbeda
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
