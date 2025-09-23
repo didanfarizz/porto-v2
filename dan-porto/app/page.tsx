@@ -1,5 +1,3 @@
-'use client';
-
 // import Image from "next/image";
 import Navbar from '@/components/navbar';
 import Dashboard from '@/components/dashboard';
@@ -8,26 +6,13 @@ import Service from '@/components/service';
 import Project from '@/components/project';
 import Contact from '@/components/Contact';
 import Footer from '@/components/footer';
-import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import ClientSideScroll from '@/components/ClientSideComponent';
 
 export default function Home() {
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    document.title = 'My Portfolio';
-    const section = searchParams.get('section');
-    if (section) {
-      const element = document.getElementById(section);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [searchParams]);
-
   return (
     <>
       <Navbar />
+      <ClientSideScroll />
       <div className="overflow-hidden relative w-screen min-h-screen">
         <div className="bg-purple w-64 h-64 right-0 rounded-full absolute translate-x-20 -translate-y-1/2 blur-3xl"></div>
         <div id="home" className="py-11">
