@@ -7,12 +7,15 @@ import Project from '@/components/project';
 import Contact from '@/components/Contact';
 import Footer from '@/components/footer';
 import ClientSideScroll from '@/components/ClientSideComponent';
+import { Suspense } from 'react';
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <ClientSideScroll />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ClientSideScroll />
+      </Suspense>
       <div className="overflow-hidden relative w-screen min-h-screen">
         <div className="bg-purple w-64 h-64 right-0 rounded-full absolute translate-x-20 -translate-y-1/2 blur-3xl"></div>
         <div id="home" className="py-11">
