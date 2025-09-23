@@ -19,7 +19,7 @@ export default function ContactForm() {
     setStatus('Mengirim...');
 
     try {
-      const response = await fetch('http://localhost:8080/api/contact', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
