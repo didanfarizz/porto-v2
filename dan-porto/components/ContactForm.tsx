@@ -19,7 +19,7 @@ export default function ContactForm() {
     setStatus('Mengirim...');
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact`, {
+      const response = await fetch('https://porto-v2-production.up.railway.app/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
