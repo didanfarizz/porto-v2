@@ -33,8 +33,19 @@ const CardImage = () => {
           <div className="tracker tr-23" />
           <div className="tracker tr-24" />
           <div className="tracker tr-25" />
-          <div id="card" className='rounded-full w-80 h-80 border-primary border-4'>
-            <Image src={'/profil-2.png'} alt='foto saya' className='w-full h-full rounded-full' width={200} height={254}></Image>
+          <div id="card" className='rounded-full w-60 h-60 md:w-80 md:h-80 border-primary border-4 overflow-hidden'>
+            {/* - Menggunakan properti `fill` untuk mengisi parent div
+                - Menghapus width dan height
+                - Menambahkan `object-cover` untuk cropping yang benar
+            */}
+            <Image 
+              src={'/profil-2.png'} 
+              alt='foto saya' 
+              className='rounded-full object-cover' 
+              fill={true}
+              priority={true} // Opsional: membuat gambar ini diprioritaskan untuk loading
+              sizes="(max-width: 768px) 15rem, 20rem" // Opsional: optimasi untuk Next.js
+            />
           </div>
         </div>
       </div>

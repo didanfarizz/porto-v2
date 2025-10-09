@@ -16,7 +16,7 @@ export default function Home() {
       <Suspense fallback={<div>Loading...</div>}>
         <ClientSideScroll />
       </Suspense>
-      <div className="overflow-hidden relative w-screen min-h-screen">
+      <div className="overflow-hidden relative w-full min-h-screen">
         <div className="bg-purple w-64 h-64 right-0 rounded-full absolute translate-x-20 -translate-y-1/2 blur-3xl"></div>
         <div id="home" className="py-11">
           <Dashboard />
