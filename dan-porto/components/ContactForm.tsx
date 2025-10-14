@@ -29,7 +29,7 @@ export default function ContactForm() {
 
       if (response.ok) {
         setStatus('Pesan berhasil terkirim!');
-        setFormData({ name: '', email: '', message: '' }); // Reset formulir
+        setFormData({ name: '', email: '', message: '' });
       } else {
         const errorData = await response.json();
         setStatus(`Gagal mengirim pesan: ${errorData.message || 'Terjadi kesalahan.'}`);
@@ -40,24 +40,45 @@ export default function ContactForm() {
     }
   };
 
+  const getStatusClass = () => {
+    if (status.includes('berhasil')) {
+      return 'text-green-400';
+    }
+    if (status.includes('Gagal') || status.includes('kesalahan')) {
+      return 'text-red-400';
+    }
+    return 'text-gray-300';
+  };
+
   return (
-    <div className=''>
-      <form onSubmit={handleSubmit} className='flex flex-col space-y-3'>
-        <div className='flex flex-col space-y-2'>
-          <label className='text-white font-medium' htmlFor="name">Name</label>
-          <input className='rounded-[15px] p-5 mr-20 text-black' type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+    <div>
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-2">
+          <label className="text-white font-medium" htmlFor="name">
+            Name
+          </label>
+          <input className="w-full rounded-[15px] p-5 text-black focus:outline-none focus:ring-2 focus:ring-primary" type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
         </div>
-        <div className='flex flex-col space-y-2'>
-          <label className='text-white font-medium' htmlFor="email">Email</label>
-          <input className='rounded-[15px] p-5 mr-20 text-black' type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+        <div className="flex flex-col space-y-2">
+          <label className="text-white font-medium" htmlFor="email">
+            Email
+          </label>
+          <input className="w-full rounded-[15px] p-5 text-black focus:outline-none focus:ring-2 focus:ring-primary" type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
         </div>
-        <div className='flex flex-col space-y-2'>
-          <label className='text-white font-medium' htmlFor="message">Your Message</label>
-          <textarea className='rounded-[15px] p-5 mr-20 text-black' id="message" name="message" value={formData.message} onChange={handleChange} rows={5} required></textarea>
+        <div className="flex flex-col space-y-2">
+          <label className="text-white font-medium" htmlFor="message">
+            Your Message
+          </label>
+          <textarea className="w-full rounded-[15px] p-5 text-black focus:outline-none focus:ring-2 focus:ring-primary" id="message" name="message" value={formData.message} onChange={handleChange} rows={5} required></textarea>
         </div>
-        <button className='bg-primary text-white rounded-[15px] p-5 mr-20 hover:bg-purple hover:transition-all hover:ease-in-out hover:shadow-md hover:shadow-primary hover:font-bold' type="submit">Submit</button>
+        <button
+          className="w-full bg-primary text-white rounded-[15px] p-5 hover:bg-purple hover:transition-all hover:ease-in-out hover:shadow-md hover:shadow-primary hover:font-bold focus:outline-none focus:ring-2 focus:ring-primary"
+          type="submit"
+        >
+          Submit
+        </button>
       </form>
-      {status && <p>{status}</p>}
+      {status && <p className={`mt-4 text-center text-sm ${getStatusClass()}`}>{status}</p>}
     </div>
   );
 }

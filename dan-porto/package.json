@@ -27,7 +27,7 @@
     "devicon": "^2.16.0",
     "dotenv": "^17.2.2",
     "flowbite-react": "^0.10.2",
-    "framer-motion": "^12.4.2",
+    "framer-motion": "^12.23.24",
     "lucide-react": "^0.475.0",
     "meshline": "^3.3.1",
     "motion": "^12.4.2",

@@ -34,10 +34,6 @@ const CardImage = () => {
           <div className="tracker tr-24" />
           <div className="tracker tr-25" />
           <div id="card" className='rounded-full w-60 h-60 md:w-80 md:h-80 border-primary border-4 overflow-hidden'>
-            {/* - Menggunakan properti `fill` untuk mengisi parent div
-                - Menghapus width dan height
-                - Menambahkan `object-cover` untuk cropping yang benar
-            */}
             <Image 
               src={'/profil-2.png'} 
               alt='foto saya' 
