@@ -214,8 +214,8 @@ export default function Tabs() {
                     alt={project.title}
                     width={500}
                     height={281}
-                    placeholder="blur" // <- TAMBAHKAN INI
-                    blurDataURL={BLUR_DATA_URL} // <- TAMBAHKAN INI
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL} 
                     className="rounded-md shadow-xl transition-all duration-300 hover:shadow-purple w-full h-48 object-cover object-center"
                   />
                   <h3 className="mt-4">{project.title}</h3>
@@ -270,8 +270,8 @@ export default function Tabs() {
                     alt={certificate.title}
                     width={500}
                     height={281}
-                    placeholder="blur" // <- TAMBAHKAN INI
-                    blurDataURL={BLUR_DATA_URL} // <- TAMBAHKAN INI
+                    placeholder="blur" 
+                    blurDataURL={BLUR_DATA_URL}
                     className="rounded-md shadow-xl transition-all duration-300 hover:shadow-purple w-full h-48 object-cover object-center"
                   />
                   <h3 className="mt-4">{certificate.title}</h3>

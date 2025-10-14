@@ -39,8 +39,8 @@ const CardImage = () => {
               alt='foto saya' 
               className='rounded-full object-cover' 
               fill={true}
-              priority={true} // Opsional: membuat gambar ini diprioritaskan untuk loading
-              sizes="(max-width: 768px) 15rem, 20rem" // Opsional: optimasi untuk Next.js
+              priority={true} 
+              sizes="(max-width: 768px) 15rem, 20rem" 
             />
           </div>
         </div>
