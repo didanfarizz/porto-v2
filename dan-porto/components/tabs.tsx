@@ -6,7 +6,8 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpRightFromSquare, faCode } from '@fortawesome/free-solid-svg-icons';
 import { SiFigma } from 'react-icons/si';
-import { BLUR_DATA_URL } from '@/lib/constants'; // <- TAMBAHKAN INI
+import { BLUR_DATA_URL } from '@/lib/constants';
+import { motion } from 'framer-motion';
 
 export default function Tabs() {
   const [activeTab, setActiveTab] = useState('Projects');
@@ -185,6 +186,21 @@ export default function Tabs() {
   const currentCertificates = certificates.slice(page * ITEMS_PER_PAGE, (page + 1) * ITEMS_PER_PAGE);
   const totalPagesCertificates = Math.ceil(certificates.length / ITEMS_PER_PAGE);
 
+  const gridVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div className="p-4 sm:p-6 bg-gradient-to-b from-purple-900 to-black min-h-screen flex flex-col items-center">
       <ul className="flex flex-wrap justify-center gap-2 text-sm font-medium text-center text-white bg-foreground rounded-2xl mb-8 p-1.5">
@@ -206,16 +222,22 @@ export default function Tabs() {
         {/* Project Start */}
         {activeTab === 'Projects' && (
           <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4" variants={gridVariants} initial={'hidden'} animate="visible">
               {currentProjects.map((project, index) => (
-                <div key={index} className="bg-foreground bg-opacity-40 p-4 sm:p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  whileHover={{ scale: 1.05, y: -10 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                  className="bg-foreground bg-opacity-40 p-4 sm:p-6 rounded-lg shadow-md flex flex-col items-center text-center"
+                >
                   <Image
                     src={project.image}
                     alt={project.title}
                     width={500}
                     height={281}
                     placeholder="blur"
-                    blurDataURL={BLUR_DATA_URL} 
+                    blurDataURL={BLUR_DATA_URL}
                     className="rounded-md shadow-xl transition-all duration-300 hover:shadow-purple w-full h-48 object-cover object-center"
                   />
                   <h3 className="mt-4">{project.title}</h3>
@@ -243,9 +265,9 @@ export default function Tabs() {
                       </>
                     )}
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mt-4">
               <Button variant="outline" disabled={page === 0} onClick={() => setPage((prev) => prev - 1)}>
                 Previous
@@ -262,22 +284,28 @@ export default function Tabs() {
         {/* Project End */} {/* Certificate Start */}
         {activeTab === 'Certificates' && (
           <div className="">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <motion.div variants={gridVariants} initial="hidden" animate="visible" className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
               {currentCertificates.map((certificate, index) => (
-                <div key={index} className="bg-foreground bg-opacity-40 p-4 sm:p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                <motion.div
+                  variants={cardVariants}
+                  whileHover={{ scale: 1.05, y: -10 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                  key={index}
+                  className="bg-foreground bg-opacity-40 p-4 sm:p-6 rounded-lg shadow-md flex flex-col items-center text-center"
+                >
                   <Image
                     src={certificate.image}
                     alt={certificate.title}
                     width={500}
                     height={281}
-                    placeholder="blur" 
+                    placeholder="blur"
                     blurDataURL={BLUR_DATA_URL}
                     className="rounded-md shadow-xl transition-all duration-300 hover:shadow-purple w-full h-48 object-cover object-center"
                   />
                   <h3 className="mt-4">{certificate.title}</h3>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mt-4">
               <Button variant="outline" disabled={page === 0} onClick={() => setPage((prev) => prev - 1)}>
                 Previous
@@ -297,16 +325,18 @@ export default function Tabs() {
             <div className="flex justify-center items-center gap-6 mt-4">
               {activeTab === 'Tech Stack' && (
                 <div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+                  <motion.div variants={gridVariants} initial="hidden" animate="visible" className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
                     {skills.map((skill, index) => (
-                      <div
+                      <motion.div
+                        variants={cardVariants}
+                        whileHover={{ scale: 1.1, y: -5 }}
                         key={index}
                         className="bg-transparent bg-opacity-10 p-4 md:p-6 hover:shadow-primary hover:shadow-lg hover:transition-shadow hover:ease-in-out bg-white border-primary border rounded-lg shadow-md flex flex-col items-center text-center"
                       >
                         <div className="text-4xl sm:text-5xl text-primary">{skill.icon}</div> <h3 className="mt-2 text-sm sm:text-base">{skill.name}</h3>
-                      </div>
+                      </motion.div>
                     ))}
-                  </div>
+                  </motion.div>
                 </div>
               )}
             </div>

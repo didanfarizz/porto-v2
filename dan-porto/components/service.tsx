@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 export default function Service() {
   const services = [
     {
@@ -19,32 +23,48 @@ export default function Service() {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.5,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
     <div className="px-4 md:px-20 py-10 flex justify-center items-center flex-col bg-foreground">
-      {/* 2. Ukuran font judul responsif dan rata tengah */}
-      <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-white to-[#fefefe] text-transparent bg-clip-text text-center mb-8">
+      <motion.h1
+        initial={{ y: 50, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-white to-[#fefefe] text-transparent bg-clip-text text-center mb-8"
+      >
         My Quality Services
-      </h1>
+      </motion.h1>
 
-      {/* Menambahkan div pembungkus untuk mapping agar mudah di-style */}
-      <div className="w-full">
+      <motion.div className="w-full" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
         {services.map((service, index) => (
-          <div 
-            key={index} 
-            className="w-full py-10 flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-8 border-b border-gray-700 last:border-b-0"
-          >
+          <motion.div key={index} variants={itemVariants} className="w-full py-10 flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-8 border-b border-gray-700 last:border-b-0">
+            {/* ... isi dari item service ... */}
             <div className="w-full lg:w-1/2 flex justify-start items-center gap-8 text-white font-bold">
               <p className="text-purple text-xl">{service.id}</p>
               <h2 className="text-xl md:text-2xl">{service.name}</h2>
             </div>
-            
-            {/* Kolom Kanan (Deskripsi) */}
             <div className="w-full lg:w-1/2 text-white/80">
               <p>{service.description}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
