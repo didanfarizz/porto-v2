@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { User, Mail, MessageSquare, SendHorizontal, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -16,10 +17,10 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('Mengirim...');
+    setStatus('Mengirim pesan...');
 
     try {
-      const response = await fetch('https://porto-v2-production.up.railway.app/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,45 +41,93 @@ export default function ContactForm() {
     }
   };
 
-  const getStatusClass = () => {
-    if (status.includes('berhasil')) {
-      return 'text-green-400';
-    }
-    if (status.includes('Gagal') || status.includes('kesalahan')) {
-      return 'text-red-400';
-    }
-    return 'text-gray-300';
-  };
-
   return (
     <div>
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-5">
+        {/* Name Input */}
         <div className="flex flex-col space-y-2">
-          <label className="text-white font-medium" htmlFor="name">
-            Name
-          </label>
-          <input className="w-full rounded-[15px] p-5 text-black focus:outline-none focus:ring-2 focus:ring-primary" type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+          <div className="flex items-center gap-1.5 text-textMain/75 font-bold text-xs tracking-wider uppercase">
+            <User className="w-3.5 h-3.5 text-primary" />
+            <label htmlFor="name">Name</label>
+          </div>
+          <input 
+            className="w-full rounded-xl px-5 py-3.5 bg-secondary/10 hover:bg-secondary/20 border border-purple/10 focus:border-primary/50 text-sm text-textMain placeholder-textMain/30 focus:outline-none focus:ring-1 focus:ring-primary/20 transition-all duration-300" 
+            type="text" 
+            id="name" 
+            name="name" 
+            placeholder="Your Name"
+            value={formData.name} 
+            onChange={handleChange} 
+            required 
+          />
         </div>
+
+        {/* Email Input */}
         <div className="flex flex-col space-y-2">
-          <label className="text-white font-medium" htmlFor="email">
-            Email
-          </label>
-          <input className="w-full rounded-[15px] p-5 text-black focus:outline-none focus:ring-2 focus:ring-primary" type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+          <div className="flex items-center gap-1.5 text-textMain/75 font-bold text-xs tracking-wider uppercase">
+            <Mail className="w-3.5 h-3.5 text-primary" />
+            <label htmlFor="email">Email Address</label>
+          </div>
+          <input 
+            className="w-full rounded-xl px-5 py-3.5 bg-secondary/10 hover:bg-secondary/20 border border-purple/10 focus:border-primary/50 text-sm text-textMain placeholder-textMain/30 focus:outline-none focus:ring-1 focus:ring-primary/20 transition-all duration-300" 
+            type="email" 
+            id="email" 
+            name="email" 
+            placeholder="your.email@example.com"
+            value={formData.email} 
+            onChange={handleChange} 
+            required 
+          />
         </div>
+
+        {/* Message Input */}
         <div className="flex flex-col space-y-2">
-          <label className="text-white font-medium" htmlFor="message">
-            Your Message
-          </label>
-          <textarea className="w-full rounded-[15px] p-5 text-black focus:outline-none focus:ring-2 focus:ring-primary" id="message" name="message" value={formData.message} onChange={handleChange} rows={5} required></textarea>
+          <div className="flex items-center gap-1.5 text-textMain/75 font-bold text-xs tracking-wider uppercase">
+            <MessageSquare className="w-3.5 h-3.5 text-primary" />
+            <label htmlFor="message">Your Message</label>
+          </div>
+          <textarea 
+            className="w-full rounded-xl px-5 py-3.5 bg-secondary/10 hover:bg-secondary/20 border border-purple/10 focus:border-primary/50 text-sm text-textMain placeholder-textMain/30 focus:outline-none focus:ring-1 focus:ring-primary/20 transition-all duration-300 resize-none" 
+            id="message" 
+            name="message" 
+            placeholder="Write your message details here..."
+            value={formData.message} 
+            onChange={handleChange} 
+            rows={4} 
+            required
+          ></textarea>
         </div>
+
+        {/* Submit Button */}
         <button
-          className="w-full bg-primary text-white rounded-[15px] p-5 hover:bg-purple hover:transition-all hover:ease-in-out hover:shadow-md hover:shadow-primary hover:font-bold focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full bg-gradient-to-r from-primary to-purple hover:opacity-95 text-white rounded-xl py-4 font-bold text-sm tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 flex items-center justify-center gap-2 group/btn disabled:opacity-50"
           type="submit"
+          disabled={status.includes('Mengirim')}
         >
-          Submit
+          <span>Send Message</span>
+          <SendHorizontal className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
         </button>
       </form>
-      {status && <p className={`mt-4 text-center text-sm ${getStatusClass()}`}>{status}</p>}
+
+      {/* Modern Status Banner */}
+      {status && (
+        <div className={`mt-5 p-4 rounded-xl border text-center flex items-center justify-center gap-2.5 text-xs font-semibold transition-all duration-300 animate-fade-in ${
+          status.includes('berhasil') 
+            ? 'bg-green-500/10 border-green-500/20 text-green-400'
+            : status.includes('Mengirim')
+            ? 'bg-primary/10 border-primary/20 text-primary'
+            : 'bg-red-500/10 border-red-500/20 text-red-400'
+        }`}>
+          {status.includes('berhasil') ? (
+            <CheckCircle2 className="w-4 h-4" />
+          ) : status.includes('Mengirim') ? (
+            <div className="w-3.5 h-3.5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+          ) : (
+            <AlertCircle className="w-4 h-4" />
+          )}
+          <span>{status}</span>
+        </div>
+      )}
     </div>
   );
 }

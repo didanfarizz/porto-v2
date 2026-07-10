@@ -23,6 +23,13 @@
   
   @layer base {
   :root {
+        --background-hex: #F6F4FA;      /* Light Mode background */
+        --purple-hex: #C4B4E6;          /* Light Mode purple ornamet */
+        --dark-purple-hex: #D0C2EB;
+        --text-main-hex: #1F1630;       /* Adaptive main text color (dark in Light Mode) */
+        --foreground-hex: #FFFFFF;      /* Light Mode card backgrounds */
+        --secondary-hex: #ECE8F3;       /* Light Mode secondary panels */
+
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
         --card: 0 0% 100%;
@@ -50,6 +57,13 @@
         --radius: 0.5rem;
     }
   .dark {
+        --background-hex: #0F0716;      /* Dark Mode background original */
+        --purple-hex: #482A81;          /* Dark Mode purple original */
+        --dark-purple-hex: #2D135A;
+        --text-main-hex: #D8D9DB;       /* Original white text */
+        --foreground-hex: #060709;      /* Original card background */
+        --secondary-hex: #140B1C;
+
         --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;
         --card: 240 10% 3.9%;
@@ -82,7 +96,7 @@
     @apply border-border;
     }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
     }
 }
   

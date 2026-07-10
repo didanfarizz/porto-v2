@@ -36,12 +36,12 @@ function ParallaxIcons({ baseVelocity, icons }: ParallaxProps) {
 
   return (
     <div className="parallax w-full overflow-hidden">
-      <motion.div className="scroller flex space-x-10 text-4xl font-bold text-white" style={{ x }} transition={{ ease: 'easeInOut', duration: 100 }}>
+      <motion.div className="scroller flex space-x-10 text-4xl font-bold text-foreground" style={{ x }} transition={{ ease: 'easeInOut', duration: 100 }}>
         {[...Array(3)].map((_, i) => (
           <div key={i} className="flex space-x-6">
             {icons.map((item, index) => (
               <div key={`${item.name}-${index}`} className="flex flex-col items-center">
-                <span className="text-white text-7xl opacity-50">{item.icon}</span>
+                <span className="text-foreground text-7xl opacity-50">{item.icon}</span>
               </div>
             ))}
           </div>

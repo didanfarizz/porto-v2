@@ -51,7 +51,7 @@ const Sosmed = () => {
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className={`p-2 bg-white text-black hover:text-white rounded-[10px] shadow-lg transition duration-300 ${
+            className={`p-2 bg-secondary text-textMain border border-purple/10 hover:text-white rounded-[10px] shadow-lg transition duration-300 ${
               hoveredButton === id ? bg : ''
             }`}
             onMouseEnter={() => setHoveredButton(id)}

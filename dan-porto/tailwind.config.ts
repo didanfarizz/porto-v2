@@ -15,13 +15,14 @@ module.exports = withMT({
   theme: {
     extend: {
       colors: {
-        background: '#0F0716',
-        purple: '#482A81',
+        background: 'var(--background-hex)',
+        purple: 'var(--purple-hex)',
         primary: '#8350EB',
-        darkPurple: '#2D135A',
+        darkPurple: 'var(--dark-purple-hex)',
         white: '#D8D9DB',
-        foreground: '#060709',
-        secondary: '#140B1C',
+        foreground: 'var(--foreground-hex)',
+        secondary: 'var(--secondary-hex)',
+        textMain: 'var(--text-main-hex)',
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
