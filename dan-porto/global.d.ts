@@ -16,6 +16,9 @@ declare global {
     interface IntrinsicElements {
       meshLineGeometry: any;
       meshLineMaterial: any;
+      // Three.js / React Three Fiber elements (prevent conflict with SVG types)
+      line: any;
+      lineBasicMaterial: any;
     }
   }
 }

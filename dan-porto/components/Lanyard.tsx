@@ -6,19 +6,18 @@ import * as THREE from 'three';
 
 // ─── Rope rendered as a native THREE.Line (not drei Line) for mutable geometry ───
 function LanyardRope({ posRef }: { posRef: React.MutableRefObject<THREE.Vector3> }) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const lineRef = useRef<any>(null);
   const ANCHOR = useMemo(() => new THREE.Vector3(0, 3.2, 0), []);
 
-  const geometry = useMemo(() => {
+  // Build the Line object once — avoids JSX <line> conflict with SVG types
+  const lineObj = useMemo(() => {
     const geo = new THREE.BufferGeometry();
     const pts = new Float32Array(31 * 3); // 31 points × xyz
     geo.setAttribute('position', new THREE.BufferAttribute(pts, 3));
-    return geo;
+    const mat = new THREE.LineBasicMaterial({ color: '#8350EB', linewidth: 2 });
+    return new THREE.Line(geo, mat);
   }, []);
 
   useFrame(() => {
-    if (!lineRef.current) return;
     const cardHook = posRef.current.clone().add(new THREE.Vector3(0, 1.4, 0));
     const midX = (ANCHOR.x + cardHook.x) / 2;
     const dist  = ANCHOR.distanceTo(cardHook);
@@ -30,16 +29,13 @@ function LanyardRope({ posRef }: { posRef: React.MutableRefObject<THREE.Vector3>
     const curve  = new THREE.QuadraticBezierCurve3(ANCHOR, mid, cardHook);
     const points = curve.getPoints(30);
 
-    const attr = lineRef.current.geometry.getAttribute('position') as THREE.BufferAttribute;
+    const attr = lineObj.geometry.getAttribute('position') as THREE.BufferAttribute;
     points.forEach((p, i) => { attr.setXYZ(i, p.x, p.y, p.z); });
     attr.needsUpdate = true;
   });
 
-  return (
-    <line ref={lineRef} geometry={geometry}>
-      <lineBasicMaterial color="#8350EB" linewidth={2} />
-    </line>
-  );
+  // Use <primitive> to render the THREE.Line directly — avoids SVG <line> type conflict
+  return <primitive object={lineObj} />;
 }
 
 // ─── Card with manual spring simulation ───
