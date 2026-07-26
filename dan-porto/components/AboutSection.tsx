@@ -6,16 +6,16 @@ import { GraduationCap, Code2, Brain, Sparkles, FolderCheck, Award, Clock, Star 
 
 export default function AboutSection() {
   const stats = [
-    { label: 'GPA Score', value: '3.82 / 4.00', icon: Star },
-    { label: 'Completed Projects', value: '12+', icon: FolderCheck },
-    { label: 'Certifications', value: '4+', icon: Award },
-    { label: 'Years Experience', value: '3+', icon: Clock },
+    { label: 'GPA Score', value: '3.83 / 4.00', icon: Star },
+    { label: 'Completed Projects', value: '10+', icon: FolderCheck },
+    { label: 'Certifications', value: '5+', icon: Award },
+    { label: 'Years Experience', value: '1+', icon: Clock },
   ];
 
   const highlights = [
     {
       title: 'Education',
-      subtitle: 'Universitas Gunadarma (3.82/4.00)',
+      subtitle: 'Universitas Gunadarma (3.83/4.00)',
       desc: 'Bachelor of Information Systems undergraduate with academic achievements including 1st Place USB Article Writing Competition.',
       icon: GraduationCap,
     },
@@ -85,7 +85,7 @@ export default function AboutSection() {
             </div>
             
             <p>
-              I&apos;m <strong className="text-textMain font-black">Didan Fariz Abqari</strong>, an Information Systems undergraduate at <strong className="text-textMain font-black">Universitas Gunadarma (GPA 3.82/4.00)</strong> with over 1 years of hands-on experience developing web and mobile applications through academic projects, organizational leadership, freelance work, and professional internships.
+              I&apos;m <strong className="text-textMain font-black">Didan Fariz Abqari</strong>, an Information Systems undergraduate at <strong className="text-textMain font-black">Universitas Gunadarma (GPA 3.83/4.00)</strong> with over 1 years of hands-on experience developing web and mobile applications through academic projects, organizational leadership, freelance work, and professional internships.
             </p>
             
             <p>

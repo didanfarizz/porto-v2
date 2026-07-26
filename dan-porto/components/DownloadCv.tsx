@@ -5,10 +5,10 @@ import { FaFileDownload } from 'react-icons/fa';
 
 const DownloadCv = () => {
   const handleDownload = () => {
-    const cvUrl = '/cv-didanfariz.pdf';
+    const cvUrl = '/cv/resume-didanfariz.pdf';
     const link = document.createElement('a');
     link.href = cvUrl;
-    link.setAttribute('download', 'CV_ATS_Didan_Fariz_Abqari.pdf');
+    link.setAttribute('download', 'Resume_Didan_Fariz_Abqari.pdf');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

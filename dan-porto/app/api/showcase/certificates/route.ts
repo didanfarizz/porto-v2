@@ -3,6 +3,14 @@ import clientPromise from '@/lib/mongodb';
 
 const fallbackCertificates = [
   {
+    title: 'The Complete Full-Stack Web Development Bootcamp - Udemy',
+    image: '/sertif-4.png',
+  },
+  {
+    title: 'Dart & Flutter Development Bootcamp: Find House App - BuildWithAngga',
+    image: '/sertif-5.png',
+  },
+  {
     title: 'Article Writing Competition - Universitas Gunadarma',
     image: '/sertif-1.jpg',
   },
@@ -25,7 +33,7 @@ export async function GET() {
     const mongoQuery = async () => {
       const client = await clientPromise;
       if (!client) return fallbackCertificates;
-      const db = client.db();
+      const db = client.db('portfolio');
       const certificates = await db
         .collection('certificates')
         .find({}, { projection: { title: 1, image: 1 } })
