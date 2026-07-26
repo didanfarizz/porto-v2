@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import { FaInstagram, FaLinkedin, FaTiktok, FaGithub, FaFacebook } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa';
+import { SiThreads } from 'react-icons/si';
 
 const buttons = [
   { 
@@ -11,18 +12,11 @@ const buttons = [
     link: 'https://www.instagram.com/didanfarizz' 
   },
   { 
-    id: 'tiktok', 
-    icon: FaTiktok, 
-    tooltip: 'TikTok', 
-    bg: 'bg-gradient-to-tr from-black to-[#464646]', 
-    link: 'https://www.tiktok.com/@xdan26?_t=ZS-8tsaAt2eiSG&_r=1' 
-  },
-  { 
-    id: 'facebook', 
-    icon: FaFacebook, 
-    tooltip: 'Facebook', 
-    bg: 'bg-gradient-to-tr from-blue-600 to-blue-400', 
-    link: 'https://www.facebook.com/didan.fariz' 
+    id: 'threads', 
+    icon: SiThreads, 
+    tooltip: 'Threads', 
+    bg: 'bg-gradient-to-tr from-black via-[#262626] to-[#404040]', 
+    link: 'https://www.threads.com/@didanfarizz' 
   },
   { 
     id: 'linkedin', 
@@ -44,23 +38,24 @@ const Sosmed = () => {
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
   return (
-    <div className="flex justify-between items-center space-x-3">
+    <div className="flex items-center space-x-3">
       {buttons.map(({ id, icon: Icon, tooltip, bg, link }) => (
         <div key={id} className="relative flex items-center justify-center">
           <a
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className={`p-2 bg-secondary text-textMain border border-purple/10 hover:text-white rounded-[10px] shadow-lg transition duration-300 ${
+            aria-label={tooltip}
+            className={`p-2.5 bg-secondary text-textMain border border-purple/10 hover:text-white rounded-xl shadow-lg transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
               hoveredButton === id ? bg : ''
             }`}
             onMouseEnter={() => setHoveredButton(id)}
             onMouseLeave={() => setHoveredButton(null)}
           >
-            <Icon size={24} />
+            <Icon size={20} />
           </a>
           {hoveredButton === id && (
-            <div className={`absolute bottom-full mb-2 px-3 py-2 text-sm text-white rounded-lg shadow-lg ${bg}`}>
+            <div className={`absolute bottom-full mb-2 px-3 py-1.5 text-xs font-bold text-white rounded-lg shadow-lg ${bg} whitespace-nowrap z-20`}>
               {tooltip}
             </div>
           )}

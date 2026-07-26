@@ -1,7 +1,9 @@
-import { NextResponse } from 'next/server';
-import clientPromise from '@/lib/mongodb';
+const { MongoClient } = require('mongodb');
+require('dotenv').config({ path: '.env' });
 
-const fallbackProjects = [
+const uri = process.env.MONGODB_URI || 'mongodb+srv://didan:Dan123@cluster0.yajfr34.mongodb.net/portfolio?appName=Cluster0';
+
+const cleanProjects = [
   {
     title: 'SIDIA - Mobile Expert System for Diabetes Diagnosis',
     category: 'Web & Mobile Development',
@@ -103,34 +105,31 @@ const fallbackProjects = [
   },
 ];
 
-export async function GET() {
+async function seedDatabase() {
+  const client = new MongoClient(uri);
+
   try {
-    if (!clientPromise) {
-      return NextResponse.json(fallbackProjects);
-    }
+    console.log('Connecting to MongoDB Atlas...');
+    await client.connect();
+    console.log('Connected successfully to MongoDB Atlas.');
 
-    const mongoQuery = async () => {
-      const client = await clientPromise;
-      if (!client) return fallbackProjects;
-      const db = client.db('portfolio');
-      const projects = await db
-        .collection('projects')
-        .find({}, { projection: { title: 1, category: 1, image: 1, link: 1, github: 1, techStack: 1, description: 1 } })
-        .limit(20)
-        .toArray();
+    const db = client.db('portfolio');
+    const projectsCollection = db.collection('projects');
 
-      if (!projects || projects.length === 0) return fallbackProjects;
-      return projects;
-    };
+    console.log('Clearing old documents from "projects" collection...');
+    const deleteResult = await projectsCollection.deleteMany({});
+    console.log(`Deleted ${deleteResult.deletedCount} old documents from "projects".`);
 
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('MongoDB timeout')), 1000)
-    );
+    console.log('Inserting updated clean projects list...');
+    const insertResult = await projectsCollection.insertMany(cleanProjects);
+    console.log(`Successfully pushed ${insertResult.insertedCount} updated projects to MongoDB Atlas!`);
 
-    const result = await Promise.race([mongoQuery(), timeoutPromise]);
-    return NextResponse.json(result);
   } catch (error) {
-    console.warn('Projects API using fast local fallback:', error);
-    return NextResponse.json(fallbackProjects);
+    console.error('Error seeding MongoDB Atlas:', error);
+  } finally {
+    await client.close();
+    console.log('MongoDB connection closed.');
   }
 }
+
+seedDatabase();

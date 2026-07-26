@@ -1,30 +1,23 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Terminal, Brain, Palette, ArrowUpRight } from 'lucide-react';
+import { Terminal, Brain } from 'lucide-react';
 
 export default function Service() {
   const services = [
     {
       id: '01',
-      name: 'FullStack Web Development',
+      name: 'Software Development (Web & Mobile)',
       icon: Terminal,
       description:
-        'Designing and developing robust end-to-end digital solutions, from intuitive and responsive interfaces to scalable server-side logic. Collaborating to transform ideas into functional products.',
+        'Designing and developing robust end-to-end digital solutions across web and mobile platforms (React, Next.js, CodeIgniter, Flutter). From responsive user interfaces to RESTful APIs and secure database architectures.',
     },
     {
       id: '02',
-      name: 'Machine Learning',
+      name: 'Applied AI & Intelligent Systems',
       icon: Brain,
       description:
-        'Processing, analyzing, and transforming data using statistical techniques and machine learning, combined with optimal feature engineering to enhance model accuracy.',
-    },
-    {
-      id: '03',
-      name: 'UI / UX Design',
-      icon: Palette,
-      description:
-        'Designing intuitive user flows and ensuring accessibility. Developing wireframes and interactive prototypes in Figma to visualize concepts and enhance overall experience.',
+        'Building diagnostic classification & prediction models, rule-based medical chatbots, and expert systems (such as SIDIA). Transforming raw data into actionable decision-support tools.',
     },
   ];
 
@@ -67,12 +60,12 @@ export default function Service() {
         transition={{ duration: 0.6, delay: 0.1 }}
         className="text-textMain text-center text-sm md:text-base max-w-lg mb-12"
       >
-        Delivering state-of-the-art applications, intelligence models, and immersive user experiences.
+        Delivering high-performance software applications and intelligent AI decision-support systems.
       </motion.p>
 
       {/* Cards Grid */}
       <motion.div 
-        className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mt-4" 
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mt-4" 
         variants={containerVariants} 
         initial="hidden" 
         whileInView="visible" 
@@ -105,15 +98,9 @@ export default function Service() {
                 <h2 className="text-xl md:text-2xl font-bold text-textMain mb-3 group-hover:text-primary transition-colors">
                   {service.name}
                 </h2>
-                <p className="text-textMain/70 text-sm leading-relaxed mb-6">
+                <p className="text-textMain/70 text-sm leading-relaxed">
                   {service.description}
                 </p>
-              </div>
-
-              {/* Arrow details */}
-              <div className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-wider group-hover:text-textMain transition-colors cursor-pointer mt-4">
-                <span>Read More</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
               </div>
             </motion.div>
           );

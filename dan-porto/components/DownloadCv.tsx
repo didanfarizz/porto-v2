@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
 import React from 'react';
 import { FaFileDownload } from 'react-icons/fa';
 
 const DownloadCv = () => {
-  const hundleDownload = () => {
+  const handleDownload = () => {
     const cvUrl = '/cv-didanfariz.pdf';
     const link = document.createElement('a');
     link.href = cvUrl;
@@ -12,15 +12,16 @@ const DownloadCv = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }
+  };
 
   return (
-    <div>
-      <button onClick={hundleDownload} className="bg-primary text-white py-2 px-4 rounded-md flex items-center gap-2 hover:bg-purple hover:transition-all hover:ease-in-out hover:shadow-md hover:shadow-primary">
-        <p>Download CV</p>
-        <FaFileDownload />
-      </button>
-    </div>
+    <button 
+      onClick={handleDownload} 
+      className="border border-primary/40 hover:border-primary text-primary hover:bg-primary/10 py-3.5 px-6 rounded-xl font-bold text-sm tracking-wide transition-all duration-300 flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+    >
+      <span>Download CV</span>
+      <FaFileDownload className="w-4 h-4" />
+    </button>
   );
 };
 

@@ -3,15 +3,16 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Canvas, useFrame, useThree, ThreeEvent } from '@react-three/fiber';
 import * as THREE from 'three';
+import Image from 'next/image';
+import { usePerformanceTier } from '@/utils/usePerformanceTier';
 
-// ─── Rope rendered as a native THREE.Line (not drei Line) for mutable geometry ───
+// ─── Rope rendered as a native THREE.Line for mutable geometry ───
 function LanyardRope({ posRef }: { posRef: React.MutableRefObject<THREE.Vector3> }) {
   const ANCHOR = useMemo(() => new THREE.Vector3(0, 3.2, 0), []);
 
-  // Build the Line object once — avoids JSX <line> conflict with SVG types
   const lineObj = useMemo(() => {
     const geo = new THREE.BufferGeometry();
-    const pts = new Float32Array(31 * 3); // 31 points × xyz
+    const pts = new Float32Array(31 * 3);
     geo.setAttribute('position', new THREE.BufferAttribute(pts, 3));
     const mat = new THREE.LineBasicMaterial({ color: '#8350EB', linewidth: 2 });
     return new THREE.Line(geo, mat);
@@ -34,7 +35,13 @@ function LanyardRope({ posRef }: { posRef: React.MutableRefObject<THREE.Vector3>
     attr.needsUpdate = true;
   });
 
-  // Use <primitive> to render the THREE.Line directly — avoids SVG <line> type conflict
+  useEffect(() => {
+    return () => {
+      lineObj.geometry.dispose();
+      (lineObj.material as THREE.Material).dispose();
+    };
+  }, [lineObj]);
+
   return <primitive object={lineObj} />;
 }
 
@@ -49,17 +56,19 @@ function IDCard({
   const meshGroupRef = useRef<THREE.Group>(null);
   const { mouse, viewport } = useThree();
 
-  // Shared position ref so the rope can read it
   const posRef = useRef(new THREE.Vector3(0, 0.5, 0));
   const velRef = useRef(new THREE.Vector3(0, 0, 0));
   const rotRef = useRef({ x: 0, y: 0, z: 0 });
 
-  // Profile texture loaded imperatively — no Suspense
   const [profileTex, setProfileTex] = useState<THREE.Texture | null>(null);
+
   useEffect(() => {
-    new THREE.TextureLoader().load(
+    let active = true;
+    const loader = new THREE.TextureLoader();
+    loader.load(
       '/profil-2.png',
       (t) => {
+        if (!active) return;
         t.minFilter = THREE.LinearFilter;
         t.magFilter = THREE.LinearFilter;
         t.needsUpdate = true;
@@ -68,6 +77,11 @@ function IDCard({
       undefined,
       (e) => console.error('[Lanyard] texture error:', e),
     );
+
+    return () => {
+      active = false;
+      if (profileTex) profileTex.dispose();
+    };
   }, []);
 
   const ANCHOR   = useMemo(() => new THREE.Vector3(0, 3.2, 0), []);
@@ -180,7 +194,6 @@ function IDCard({
   );
 }
 
-// Top anchor pin
 function TopAnchor() {
   return (
     <mesh position={[0, 3.2, 0]}>
@@ -193,7 +206,8 @@ function TopAnchor() {
 // ─── Main export ───
 export default function Lanyard() {
   const [isDragged, setIsDragged] = useState(false);
-  const [mounted,   setMounted]   = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { isLowEnd, isTabVisible, dpr } = usePerformanceTier();
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -201,6 +215,29 @@ export default function Lanyard() {
     return (
       <div className="w-[300px] h-[400px] sm:w-[350px] sm:h-[450px] rounded-3xl bg-secondary/10 border border-purple/10 flex items-center justify-center backdrop-blur-md shadow-2xl">
         <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  // Fallback static profile card for low-power mobile devices
+  if (isLowEnd) {
+    return (
+      <div className="w-[280px] h-[380px] sm:w-[320px] sm:h-[420px] rounded-3xl bg-secondary/20 border border-primary/30 p-4 flex flex-col items-center justify-center backdrop-blur-xl shadow-2xl relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-purple/10 to-transparent pointer-events-none" />
+        <div className="relative w-48 h-64 rounded-2xl overflow-hidden shadow-lg border border-purple/20 mb-4">
+          <Image
+            src="/profil-2.png"
+            alt="Didan Farizz Profile"
+            fill
+            sizes="(max-width: 768px) 192px, 200px"
+            className="object-cover object-center"
+            priority
+          />
+        </div>
+        <div className="text-center z-10">
+          <h4 className="text-sm font-bold text-white tracking-wide">Didan Farizz</h4>
+          <p className="text-xs text-primary font-mono font-semibold">Web Developer &amp; ML Engineer</p>
+        </div>
       </div>
     );
   }
@@ -213,6 +250,9 @@ export default function Lanyard() {
 
       <Canvas
         camera={{ position: [0, 0, 10], fov: 40 }}
+        dpr={[1, dpr]}
+        frameloop={isTabVisible ? 'always' : 'never'}
+        gl={{ antialias: false, powerPreference: 'high-performance' }}
         shadows
         className="w-full h-full cursor-grab active:cursor-grabbing"
       >

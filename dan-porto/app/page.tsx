@@ -4,6 +4,9 @@ import React, { useState, Suspense } from 'react';
 import Navbar from '@/components/navbar';
 import Dashboard from '@/components/dashboard';
 import ParallaxText from '@/components/parallax';
+import AboutSection from '@/components/AboutSection';
+import ExperienceSection from '@/components/ExperienceSection';
+import SkillsSection from '@/components/SkillsSection';
 import Service from '@/components/service';
 import Project from '@/components/project';
 import Contact from '@/components/Contact';
@@ -32,10 +35,10 @@ export default function Home() {
             key="content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
             <Navbar />
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={null}>
               <ClientSideScroll />
             </Suspense>
             <div className="overflow-hidden relative w-full min-h-screen">
@@ -44,38 +47,64 @@ export default function Home() {
               {/* Glow spots with parallax scrolling */}
               <motion.div 
                 style={{ y: yGlow1 }}
-                className="bg-purple w-64 h-64 right-0 rounded-full absolute translate-x-20 -translate-y-1/2 blur-3xl pointer-events-none"
+                className="bg-purple/20 w-72 h-72 right-0 rounded-full absolute translate-x-20 -translate-y-1/2 blur-3xl pointer-events-none"
               />
               <motion.div 
                 style={{ y: yGlow2 }}
                 className="bg-primary/10 w-80 h-80 left-0 rounded-full absolute -translate-x-24 top-[60vh] blur-3xl pointer-events-none"
               />
 
+              {/* 1. Hero Section */}
               <div id="home" className="py-20">
                 <Dashboard />
-                <MotionWrapper delay={0.3}>
+                <MotionWrapper delay={0.2}>
                   <ParallaxText />
                 </MotionWrapper>
               </div>
 
+              {/* 2. About Me Section */}
+              <MotionWrapper>
+                <div id="about" className="py-12">
+                  <AboutSection />
+                </div>
+              </MotionWrapper>
+
+              {/* 3. Experience & CV Timeline Section */}
+              <MotionWrapper>
+                <div id="experience" className="py-12">
+                  <ExperienceSection />
+                </div>
+              </MotionWrapper>
+
+              {/* 4. Tech Skills Section */}
+              <MotionWrapper>
+                <div id="skills" className="py-12">
+                  <SkillsSection />
+                </div>
+              </MotionWrapper>
+
+              {/* 5. Projects & Certificates Showcase */}
+              <MotionWrapper>
+                <div id="project" className="py-16">
+                  <Project />
+                </div>
+              </MotionWrapper>
+
+              {/* 6. Services Section */}
               <MotionWrapper>
                 <div id="service" className="py-16">
                   <Service />
                 </div>
               </MotionWrapper>
 
+              {/* 7. Contact Section */}
               <MotionWrapper>
-                <div id="project" className="py-32">
-                  <Project />
-                </div>
-              </MotionWrapper>
-
-              <MotionWrapper>
-                <div id="contact" className="mt-16">
+                <div id="contact" className="mt-12">
                   <Contact />
                 </div>
               </MotionWrapper>
 
+              {/* Footer */}
               <MotionWrapper>
                 <Footer />
               </MotionWrapper>

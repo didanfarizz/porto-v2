@@ -22,21 +22,31 @@ const fallbackSkills = [
 export async function GET() {
   try {
     if (!clientPromise) {
-      console.log('MongoDB client promise is null. Falling back to local skills data.');
       return NextResponse.json(fallbackSkills);
     }
-    const client = await clientPromise;
-    const db = client.db();
-    const skills = await db.collection('skills').find({}).toArray();
-    
-    if (skills.length === 0) {
-      console.log('MongoDB skills collection is empty. Returning local skills data.');
-      return NextResponse.json(fallbackSkills);
-    }
-    
-    return NextResponse.json(skills);
+
+    const mongoQuery = async () => {
+      const client = await clientPromise;
+      if (!client) return fallbackSkills;
+      const db = client.db();
+      const skills = await db
+        .collection('skills')
+        .find({}, { projection: { name: 1, iconUrl: 1 } })
+        .limit(30)
+        .toArray();
+
+      if (!skills || skills.length === 0) return fallbackSkills;
+      return skills;
+    };
+
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('MongoDB timeout')), 1000)
+    );
+
+    const result = await Promise.race([mongoQuery(), timeoutPromise]);
+    return NextResponse.json(result);
   } catch (error) {
-    console.error('Failed to fetch skills from MongoDB, using fallback data:', error);
+    console.warn('Skills API using fast local fallback:', error);
     return NextResponse.json(fallbackSkills);
   }
 }

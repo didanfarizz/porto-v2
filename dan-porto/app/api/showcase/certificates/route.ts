@@ -19,21 +19,31 @@ const fallbackCertificates = [
 export async function GET() {
   try {
     if (!clientPromise) {
-      console.log('MongoDB client promise is null. Falling back to local certificates data.');
       return NextResponse.json(fallbackCertificates);
     }
-    const client = await clientPromise;
-    const db = client.db();
-    const certificates = await db.collection('certificates').find({}).toArray();
-    
-    if (certificates.length === 0) {
-      console.log('MongoDB certificates collection is empty. Returning local certificates data.');
-      return NextResponse.json(fallbackCertificates);
-    }
-    
-    return NextResponse.json(certificates);
+
+    const mongoQuery = async () => {
+      const client = await clientPromise;
+      if (!client) return fallbackCertificates;
+      const db = client.db();
+      const certificates = await db
+        .collection('certificates')
+        .find({}, { projection: { title: 1, image: 1 } })
+        .limit(20)
+        .toArray();
+
+      if (!certificates || certificates.length === 0) return fallbackCertificates;
+      return certificates;
+    };
+
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('MongoDB timeout')), 1000)
+    );
+
+    const result = await Promise.race([mongoQuery(), timeoutPromise]);
+    return NextResponse.json(result);
   } catch (error) {
-    console.error('Failed to fetch certificates from MongoDB, using fallback data:', error);
+    console.warn('Certificates API using fast local fallback:', error);
     return NextResponse.json(fallbackCertificates);
   }
 }

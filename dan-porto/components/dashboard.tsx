@@ -1,6 +1,6 @@
 'use client';
 
-import Lanyard from './Lanyard';
+import ProfileCard from './ProfileCard';
 import Sosmed from './sosmed';
 import DownloadCv from './DownloadCv';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -52,36 +52,36 @@ export default function Dashboard() {
           style={{ y: yText, opacity: opacityHero }}
         >
           {/* Status Pill Hanger */}
-          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-extrabold tracking-widest text-primary uppercase bg-primary/10 border border-primary/20 shadow-sm">
+          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-extrabold tracking-widest text-primary uppercase bg-primary/10 border border-primary/20 shadow-sm">
             <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
             <span>Open for Opportunities</span>
           </motion.div>
 
           {/* Heading Title */}
           <div className="space-y-2">
-            <motion.h3 variants={itemVariants} className="text-xl sm:text-2xl font-bold tracking-tight text-textMain/70">
+            <motion.h3 variants={itemVariants} className="text-xl sm:text-2xl font-bold tracking-tight text-textMain/80">
               Hi, I&apos;m
             </motion.h3>
             <motion.h1 
               variants={itemVariants} 
               className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none bg-gradient-to-r from-primary via-purple to-pink-500 text-transparent bg-clip-text"
             >
-              Didan Farizz
+              Didan Fariz Abqari
             </motion.h1>
             <motion.p 
               variants={itemVariants} 
               className="text-lg sm:text-xl font-mono font-bold text-primary tracking-wide"
             >
-              Web Developer & ML Engineer
+              Software Developer &amp; AI Enthusiast
             </motion.p>
           </div>
 
           {/* Intro Description */}
           <motion.p 
             variants={itemVariants} 
-            className="text-sm sm:text-base text-textMain/75 leading-relaxed max-w-lg"
+            className="text-sm sm:text-base text-textMain/85 leading-relaxed max-w-lg"
           >
-            I am an Information Systems student passionate about building immersive, interactive web experiences and developing machine learning solutions. Let&apos;s turn complex logic into gorgeous, functional digital realities!
+            I am an Information Systems student passionate about building modern web &amp; mobile software solutions and developing intelligent AI applications. Let&apos;s turn complex logic into clean, functional digital realities!
           </motion.p>
 
           {/* Social Icons Wrapper */}
@@ -92,31 +92,30 @@ export default function Dashboard() {
           {/* CTA Buttons */}
           <motion.div 
             variants={itemVariants} 
-            className="flex flex-wrap items-center gap-4 justify-center lg:justify-start w-full"
+            className="flex flex-wrap items-center gap-4 justify-center lg:justify-start w-full pt-2"
           >
-            <DownloadCv />
+            {/* Primary Solid CTA */}
             <a 
               href="#contact" 
-              className="bg-gradient-to-r from-primary to-purple hover:opacity-95 text-white py-3.5 px-8 rounded-xl font-bold text-sm tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 flex items-center gap-2 group/talk hover:scale-[1.02] active:scale-[0.98]"
+              className="bg-gradient-to-r from-primary to-purple hover:opacity-95 text-white py-3.5 px-8 rounded-xl font-bold text-sm tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 flex items-center gap-2 group/talk hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
             >
               <span>Let&apos;s Talk</span>
               <ArrowRight className="w-4 h-4 group-hover/talk:translate-x-1 transition-transform duration-300" />
             </a>
+            {/* Secondary Outlined CTA */}
+            <DownloadCv />
           </motion.div>
         </motion.div>
 
-        {/* Right Side: 3D Interactive Lanyard Profile */}
+        {/* Right Side: Ultra-Aesthetic 2D Profile Card */}
         <motion.div 
           className="w-full lg:w-1/2 flex justify-center items-center relative" 
           initial={{ opacity: 0, scale: 0.9 }} 
           animate={{ opacity: 1, scale: 1 }} 
-          transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           style={{ y: yImage, opacity: opacityHero }}
         >
-          {/* Subtle glow spot behind the 3D canvas */}
-          <div className="absolute w-60 h-60 rounded-full bg-primary/10 blur-3xl pointer-events-none -z-10 animate-pulse" />
-          
-          <Lanyard />
+          <ProfileCard />
         </motion.div>
 
       </div>
