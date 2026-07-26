@@ -17,12 +17,12 @@ export async function POST(request: Request) {
 
     let savedToDb = false;
 
-    // 1. Fail-safe: Save message to MongoDB collection if available
+    // 1. Save message to MongoDB collection as a guaranteed backup
     try {
       if (clientPromise) {
         const client = await clientPromise;
         if (client) {
-          const db = client.db();
+          const db = client.db('portfolio');
           await db.collection('messages').insertOne({
             name,
             email,
@@ -30,13 +30,14 @@ export async function POST(request: Request) {
             createdAt: new Date(),
           });
           savedToDb = true;
+          console.log('Contact message saved to MongoDBAtlas successfully.');
         }
       }
     } catch (dbError) {
       console.warn('MongoDB message backup failed:', dbError);
     }
 
-    // 2. Resolve SMTP credentials
+    // 2. Resolve SMTP credentials from Environment Variables
     const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
     const smtpPort = Number(process.env.SMTP_PORT) || 465;
     const smtpUser = process.env.SMTP_USER || process.env.EMAIL_USER;
@@ -62,24 +63,30 @@ export async function POST(request: Request) {
         const receiverEmail = process.env.RECEIVER_EMAIL || smtpUser;
 
         const mailOptions = {
-          from: smtpUser,
+          from: `"Portfolio Contact Form" <${smtpUser}>`,
           replyTo: email,
           to: receiverEmail,
-          subject: `Pesan Baru dari Portofolio: ${name}`,
-          text: `Nama: ${name}\nEmail: ${email}\nPesan:\n${message}`,
+          subject: `📩 Pesan Baru dari Portofolio: ${name}`,
+          text: `Nama: ${name}\nEmail: ${email}\n\nPesan:\n${message}`,
         };
 
         await transporter.sendMail(mailOptions);
         emailSent = true;
+        console.log('Contact form email sent successfully via Nodemailer.');
       } catch (mailError) {
         console.error('Nodemailer sendMail failed:', mailError);
       }
+    } else {
+      console.warn('SMTP_USER or SMTP_PASSWORD environment variables missing on Vercel.');
     }
 
     if (emailSent || savedToDb) {
       return NextResponse.json({ message: 'Message sent successfully!' }, { status: 200 });
     } else {
-      return NextResponse.json({ message: 'Failed to send message. Please try again or contact via social media.' }, { status: 500 });
+      return NextResponse.json(
+        { message: 'Failed to send message. Please configure Environment Variables on Vercel.' }, 
+        { status: 500 }
+      );
     }
   } catch (error) {
     console.error('Failed to process contact form submission:', error);
